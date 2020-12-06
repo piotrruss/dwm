@@ -1,4 +1,6 @@
 /* See LICENSE file for copyright and license details. */
+#define TERM "st -e "
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -45,9 +47,9 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
   /* symbol     arrange function */
-  { "T",      tile },    /* first entry is default */
-  { "F",      NULL },    /* no layout function means floating behavior */
-  { "M",      monocle },
+  { "[T]",  tile },    /* first entry is default */
+  { "[F]",  NULL },    /* no layout function means floating behavior */
+  { "[M]",  monocle },
 };
 
 /* key definitions */
@@ -70,11 +72,11 @@ static Key keys[] = {
   /* modifier                     key        function        argument */
   { MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
   { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-  { MODKEY,                       XK_b,      togglebar,      {0} },
+  { MODKEY|ShiftMask,             XK_minus,  togglebar,      {0} },
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
   { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-  { MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
-  { MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
+  { MODKEY,                       XK_equal,  incnmaster,     {.i = +1 } },
+  { MODKEY,                       XK_minus,  incnmaster,     {.i = -1 } },
   { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
   { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
   { MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
@@ -101,6 +103,41 @@ static Key keys[] = {
   TAGKEYS(                        XK_8,                      7)
   TAGKEYS(                        XK_9,                      8)
   { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+  /* custom bindings */
+  { MODKEY,              XK_w,   spawn,  SHCMD("firefox") },
+  { MODKEY|ShiftMask,    XK_w,   spawn,  SHCMD("google-chrome-stable") },
+  { MODKEY,              XK_e,   spawn,  SHCMD(TERM "neomutt") },
+  { MODKEY|ShiftMask,    XK_e,   spawn,  SHCMD(TERM "neomutt -e 'source ~/.config/mutt/accounts/gmx'") },
+  { MODKEY,              XK_y,   spawn,  SHCMD(TERM "straw-viewer -7 -C") },
+  { MODKEY|ShiftMask,    XK_y,   spawn,  SHCMD(TERM "straw-viewer -n -C") },
+  { MODKEY,              XK_u,   spawn,  SHCMD(TERM "ncmpcpp") },
+  { MODKEY|ShiftMask,    XK_u,   spawn,  SHCMD("~/Scripts/mount && pkill -RTMIN+5 dwmblocks") },
+  { MODKEY,              XK_p,   spawn,  SHCMD("passmenu") },
+  /* { MODKEY|ShiftMask,    XK_p,   spawn,  SHCMD("") }, */
+  { MODKEY,              XK_s,   spawn,  SHCMD(TERM "pulsemixer") },
+  { MODKEY|ShiftMask,    XK_s,   spawn,  SHCMD("~/Scripts/scanDefault") },
+  { MODKEY,              XK_b,   spawn,  SHCMD(TERM "newsboat") },
+  { MODKEY|ShiftMask,    XK_b,   spawn,  SHCMD("~/Scripts/bluetooth && pkill -RTMIN+6 dwmblocks") },
+  { MODKEY,              XK_n,   spawn,  SHCMD(TERM "vim ~/Documents/Notes/main") },
+  { MODKEY|ShiftMask,    XK_n,   spawn,  SHCMD("sncli") },
+  { MODKEY,              XK_x,   spawn,  SHCMD(TERM "sc-im") },
+  /* { MODKEY|ShiftMask,    XK_x,   spawn,  SHCMD("") }, */
+  { MODKEY,              XK_c,   spawn,  SHCMD(TERM "calcurse") },
+  { MODKEY|ShiftMask,    XK_c,   spawn,  SHCMD("~/Scripts/camtoggle") },
+  /* { MODKEY|ShiftMask,    XK_x,   spawn,  SHCMD(TERM "") }, */
+
+  { 0, XK_Print,  spawn,  SHCMD("maim -s -b 2 ~/Images/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').jpg && notify-send -t 3000 -u low 'Screenshot saved' '~/Images/Screenshots'") },
+
+  { 0, XF86XK_AudioMute,    spawn,    SHCMD("pamixer -t && pkill -RTMIN+3 dwmblocks") },
+  { 0, XF86XK_AudioRaiseVolume, spawn,    SHCMD("pamixer -i 5 && pkill -RTMIN+3 dwmblocks") },
+  { 0, XF86XK_AudioLowerVolume, spawn,    SHCMD("pamixer -d 5 && pkill -RTMIN+3 dwmblocks") },
+  { 0, XF86XK_AudioPlay,    spawn,  SHCMD("mpc toggle") },
+  { 0, XF86XK_AudioStop,    spawn,  SHCMD("mpc stop") },
+  { 0, XF86XK_AudioPrev,    spawn,  SHCMD("mpc prev") },
+  { 0, XF86XK_AudioNext,    spawn,  SHCMD("mpc next") },
+  { 0, XF86XK_AudioMicMute, spawn,  SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
+  { 0, XF86XK_MonBrightnessUp,  spawn,  SHCMD("xbacklight -inc 5 && pkill -RTMIN+4 dwmblocks") },
+  { 0, XF86XK_MonBrightnessDown,  spawn,  SHCMD("xbacklight -dec 5 && pkill -RTMIN+4 dwmblocks") },
 };
 
 /* button definitions */
