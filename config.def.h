@@ -1,4 +1,3 @@
-/* See LICENSE file for copyright and license details. */
 #define TERM "st -e "
 #include <X11/XF86keysym.h>
 
@@ -7,8 +6,8 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Terminus:size=10" };
-static const char dmenufont[]       = "Terminus:size=10";
+static const char *fonts[]          = { "Terminus:size=9" };
+static const char dmenufont[]       = "Terminus:size=9";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -47,7 +46,7 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
   /* symbol     arrange function */
-  { "[T]",  tile },    /* first entry is default */
+  { "",  tile },    /* first entry is default */
   { "[F]",  NULL },    /* no layout function means floating behavior */
   { "[M]",  monocle },
 };
@@ -103,6 +102,7 @@ static Key keys[] = {
   TAGKEYS(                        XK_8,                      7)
   TAGKEYS(                        XK_9,                      8)
   { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+  { MODKEY|ShiftMask,             XK_Escape, spawn,          SHCMD("sudo systemtctl suspend") },
   /* custom bindings */
   { MODKEY,              XK_w,   spawn,  SHCMD("firefox") },
   { MODKEY|ShiftMask,    XK_w,   spawn,  SHCMD("google-chrome-stable") },
@@ -111,13 +111,13 @@ static Key keys[] = {
   { MODKEY,              XK_y,   spawn,  SHCMD(TERM "straw-viewer -7 -C") },
   { MODKEY|ShiftMask,    XK_y,   spawn,  SHCMD(TERM "straw-viewer -n -C") },
   { MODKEY,              XK_u,   spawn,  SHCMD(TERM "ncmpcpp") },
-  { MODKEY|ShiftMask,    XK_u,   spawn,  SHCMD("~/Scripts/mount && pkill -RTMIN+5 dwmblocks") },
+  { MODKEY|ShiftMask,    XK_u,   spawn,  SHCMD("~/Scripts/mountdevice && pkill -RTMIN+5 dwmblocks") },
   { MODKEY,              XK_p,   spawn,  SHCMD("passmenu") },
   /* { MODKEY|ShiftMask,    XK_p,   spawn,  SHCMD("") }, */
   { MODKEY,              XK_s,   spawn,  SHCMD(TERM "pulsemixer") },
   { MODKEY|ShiftMask,    XK_s,   spawn,  SHCMD("~/Scripts/scanDefault") },
   { MODKEY,              XK_b,   spawn,  SHCMD(TERM "newsboat") },
-  { MODKEY|ShiftMask,    XK_b,   spawn,  SHCMD("~/Scripts/bluetooth && pkill -RTMIN+6 dwmblocks") },
+  { MODKEY|ShiftMask,    XK_b,   spawn,  SHCMD("~/Scripts/bluetoothtoggle && pkill -RTMIN+6 dwmblocks") },
   { MODKEY,              XK_n,   spawn,  SHCMD(TERM "vim ~/Documents/Notes/main") },
   { MODKEY|ShiftMask,    XK_n,   spawn,  SHCMD("sncli") },
   { MODKEY,              XK_x,   spawn,  SHCMD(TERM "sc-im") },
@@ -146,7 +146,6 @@ static Button buttons[] = {
   /* click                event mask      button          function        argument */
   { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
   { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-  { ClkWinTitle,          0,              Button2,        zoom,           {0} },
   { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
   { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
   { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
