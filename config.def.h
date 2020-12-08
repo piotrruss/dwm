@@ -40,8 +40,8 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
+static const float mfact     = 0.75; /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 2;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
@@ -83,8 +83,8 @@ static Key keys[] = {
   { MODKEY,                       XK_Tab,    view,           {0} },
   { MODKEY,                       XK_q,      killclient,     {0} },
   { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-  { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-  { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+  { MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
+  { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
   { MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[3]} },
   { MODKEY,                       XK_space,  setlayout,      {0} },
   { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
@@ -112,11 +112,11 @@ static Key keys[] = {
   { MODKEY|ShiftMask,    XK_e,   spawn,  SHCMD(TERM "neomutt -e 'source ~/.config/mutt/accounts/gmx'") },
   { MODKEY,              XK_y,   spawn,  SHCMD(TERM "straw-viewer -7 -C") },
   { MODKEY|ShiftMask,    XK_y,   spawn,  SHCMD(TERM "straw-viewer -n -C") },
-  { MODKEY,              XK_u,   spawn,  SHCMD(TERM "ncmpcpp") },
+  /* { MODKEY,              XK_u,   spawn,  SHCMD() }, */
   { MODKEY|ShiftMask,    XK_u,   spawn,  SHCMD("~/Scripts/mountdevice && pkill -RTMIN+5 dwmblocks") },
   { MODKEY,              XK_p,   spawn,  SHCMD("passmenu") },
   /* { MODKEY|ShiftMask,    XK_p,   spawn,  SHCMD("") }, */
-  { MODKEY,              XK_s,   spawn,  SHCMD(TERM "pulsemixer") },
+  /* { MODKEY,              XK_s,   spawn,  SHCMD(TERM "") }, */
   { MODKEY|ShiftMask,    XK_s,   spawn,  SHCMD("~/Scripts/scanDefault") },
   { MODKEY,              XK_b,   spawn,  SHCMD(TERM "newsboat") },
   { MODKEY|ShiftMask,    XK_b,   spawn,  SHCMD("~/Scripts/bluetoothtoggle && pkill -RTMIN+6 dwmblocks") },
@@ -126,6 +126,8 @@ static Key keys[] = {
   /* { MODKEY|ShiftMask,    XK_x,   spawn,  SHCMD("") }, */
   { MODKEY,              XK_c,   spawn,  SHCMD(TERM "calcurse") },
   { MODKEY|ShiftMask,    XK_c,   spawn,  SHCMD("~/Scripts/camtoggle") },
+  { MODKEY,              XK_m,   spawn,  SHCMD(TERM "ncmpcpp") },
+  { MODKEY|ShiftMask,    XK_m,   spawn,  SHCMD(TERM "pulsemixer") },
   /* { MODKEY|ShiftMask,    XK_x,   spawn,  SHCMD(TERM "") }, */
 
   { 0, XK_Print,  spawn,  SHCMD("maim -s -b 2 ~/Images/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').jpg && notify-send -t 3000 -u low 'Screenshot saved' '~/Images/Screenshots'") },
