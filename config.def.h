@@ -6,6 +6,7 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int vertpad            = 4;       /* vertical padding of bar */
 static const char *fonts[]          = { "Terminus:size=9" };
 static const char dmenufont[]       = "Terminus:size=9";
 static const char col_gray1[]       = "#222222";
@@ -120,7 +121,7 @@ static Key keys[] = {
   { MODKEY|ShiftMask,    XK_s,   spawn,  SHCMD("~/Scripts/scanDefault") },
   { MODKEY,              XK_b,   spawn,  SHCMD(TERM "newsboat") },
   { MODKEY|ShiftMask,    XK_b,   spawn,  SHCMD("~/Scripts/bluetoothtoggle && pkill -RTMIN+6 dwmblocks") },
-  { MODKEY,              XK_n,   spawn,  SHCMD(TERM "vim ~/Documents/Notes/main") },
+  { MODKEY,              XK_n,   spawn,  SHCMD("notes") },
   { MODKEY|ShiftMask,    XK_n,   spawn,  SHCMD("sncli") },
   { MODKEY,              XK_x,   spawn,  SHCMD(TERM "sc-im") },
   /* { MODKEY|ShiftMask,    XK_x,   spawn,  SHCMD("") }, */
